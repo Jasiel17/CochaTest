@@ -11,8 +11,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var botonVerdad : Button
     private lateinit var botonFalso : Button
-    private lateinit var botonSiguiente : Button
-
+    private lateinit var botonAdelante : Button
+    private lateinit var botonAtras : Button
 
     private var indiceActual = 0
 
@@ -33,7 +33,8 @@ class MainActivity : AppCompatActivity() {
 
         botonVerdad = findViewById(R.id.verdad_button)
         botonFalso = findViewById(R.id.falso_button)
-        botonSiguiente = findViewById(R.id.siguiente_button)
+        botonAdelante = findViewById(R.id.adelante_button)
+        botonAtras = findViewById(R.id.atras_button)
 
         botonVerdad.setOnClickListener {view : View ->
             verificarRespuesta(true)
@@ -44,11 +45,13 @@ class MainActivity : AppCompatActivity() {
             verificarRespuesta(false)
         }
 
-        botonSiguiente.setOnClickListener {
-                indiceActual = indiceActual + 1
-                actualizarPregunta()
+        botonAdelante.setOnClickListener {
+            cicloPreguntasAdelante(indiceActual)
         }
 
+        botonAtras.setOnClickListener {
+            cicloPreguntasAtras(indiceActual)
+        }
         actualizarPregunta()
     }
 
@@ -59,6 +62,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun actualizarPregunta1(ind: Int){
+
+        val textoPreguntaID = bancoPreguntas[ind].idTexto
+        pregunta_text_view.setText(textoPreguntaID)
+
+    }
     private fun verificarRespuesta(respuestaUsuario: Boolean){
 
             val respuestaCorrecta = bancoPreguntas[indiceActual].respuesta
@@ -69,5 +78,25 @@ class MainActivity : AppCompatActivity() {
             }
             Toast.makeText(this,mostrarMensajeID,Toast.LENGTH_SHORT).show()
 
+    }
+
+    private fun cicloPreguntasAtras(ind: Int){
+        if(indiceActual==0){
+            indiceActual = bancoPreguntas.size -1
+            actualizarPregunta1(indiceActual)
+        }else{
+            indiceActual = indiceActual - 1
+            actualizarPregunta1(indiceActual)
+        }
+    }
+
+    private fun cicloPreguntasAdelante(ind: Int){
+        if(indiceActual+1 == bancoPreguntas.size ){
+            indiceActual = 0
+            actualizarPregunta1(indiceActual)
+        }else{
+            indiceActual = indiceActual + 1
+            actualizarPregunta1(indiceActual)
+        }
     }
 }
