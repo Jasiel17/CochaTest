@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -13,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var botonFalso : Button
     private lateinit var botonAdelante : Button
     private lateinit var botonAtras : Button
-
+    private lateinit var texto : TextView
     private var indiceActual = 0
 
     private val bancoPreguntas = listOf(
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         botonFalso = findViewById(R.id.falso_button)
         botonAdelante = findViewById(R.id.adelante_button)
         botonAtras = findViewById(R.id.atras_button)
+        texto= findViewById(R.id.pregunta_text)
 
         botonVerdad.setOnClickListener {view : View ->
             verificarRespuesta(true)
@@ -58,14 +60,14 @@ class MainActivity : AppCompatActivity() {
     private fun actualizarPregunta(){
 
         val textoPreguntaID = bancoPreguntas[indiceActual].idTexto
-        pregunta_text_view.setText(textoPreguntaID)
+        pregunta_text.setText(textoPreguntaID)
 
     }
 
     private fun actualizarPregunta1(ind: Int){
 
         val textoPreguntaID = bancoPreguntas[ind].idTexto
-        pregunta_text_view.setText(textoPreguntaID)
+        texto.setText(textoPreguntaID)
 
     }
     private fun verificarRespuesta(respuestaUsuario: Boolean){
@@ -99,4 +101,5 @@ class MainActivity : AppCompatActivity() {
             actualizarPregunta1(indiceActual)
         }
     }
+
 }
